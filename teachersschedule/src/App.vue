@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import TeachersSchedule from './components/TeachersSchedule/TeachersSchedule.vue'
+import TeachersSchedule from '../src/components/TeachersSchedule/TeachersSchedule.vue'
 
 
 </script>
