@@ -1,62 +1,53 @@
 <script setup lang="ts">
 
-const parallels = [
-    {
-      text: '8:00 (Математика М.И.Моро)',
-      id : 168
-    },
-    {
-      text: '8:00 Стандарт (Математика М.И.Моро)',
-      id : 169
-    },
-    {
-      text: '10:00 (Математика М.И.Моро)',
-      id : 170
-    },
-    {
-      text: '10:00 Стандарт (Математика М.И.Моро)',
-      id : 171
-    },
-    {
-      text: '8:00 (Математика Л.Г.Петерсон)',
-      id : 221
-    },
-    {
-      text: '8:00 Стандарт (Математика Л.Г.Петерсон)',
-      id : 218
-    },
-    {
-      text: '10:00 (Математика Л.Г.Петерсон)',
-      id : 224
-    },
-    {
-      text: '10:00 Стандарт (Математика Л.Г.Петерсон)',
-      id : 222
-    },
-    {
-      text: 'Ускоренная 1–2 классы за год',
-      id : 178
-    },
-    {
-      text: 'Программа Эльконина-Давыдова. Стандарт',
-      id : 181
-    }
-];
 
+import {ref, watch} from "vue";
 
-// export interface Props {
-//   grade : number;
-// }
+export interface Props {
+  modelValue: Record<string, any>;
+  options: Array<Record<string, any>>;
+  labelKey: string;
+}
 
-// const prop = defineProps<Props>()
+const prop = defineProps<Props>()
+const emit = defineEmits<{
+  'update:modelValue': [ value: Record<string, any> ];
+}>()
 
+// VARIABLES
+const isOpen = ref(false)
+const value = ref(prop.modelValue)
+
+// METHODS
+function onOptionClick(option: Record<string, any>) {
+  value.value = option
+  isOpen.value = false
+}
+
+function onOpenSelectButtonClick() {
+  isOpen.value = !isOpen.value
+}
+
+// WATCHERS
+watch(value, (newValue) => {
+  emit('update:modelValue', newValue)
+})
 </script>
 
 <template>
-  <select size="10" class="w-full flex grow border border-indigo-500">
-    <option v-for="parallel in parallels">
-      {{ parallel.text }}
-    </option>
-
-  </select>
+  <div class="">
+    <div class="">
+      <button @click="onOpenSelectButtonClick">Нажми на меня</button>
+    </div>
+    <div v-if="isOpen" class="">
+      <ul>
+        <li
+            v-for="(option, optionIndex) in options" :key="optionIndex"
+            @click="onOptionClick(option)"
+        >
+          {{ option[labelKey] }}
+        </li>
+      </ul>
+    </div>
+  </div>
 </template>
