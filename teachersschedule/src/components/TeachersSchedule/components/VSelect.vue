@@ -4,14 +4,14 @@
 import {ref, watch} from "vue";
 
 export interface Props {
-  modelValue: Record<string, any>;
-  options: Array<Record<string, any>>;
+  modelValue: object;
+  options: Array<object>;
   labelKey: string;
 }
 
 const prop = defineProps<Props>()
 const emit = defineEmits<{
-  'update:modelValue': [ value: Record<string, any> ];
+  'update:modelValue': [ value: object ];
 }>()
 
 // VARIABLES
@@ -19,7 +19,7 @@ const isOpen = ref(false)
 const value = ref(prop.modelValue)
 
 // METHODS
-function onOptionClick(option: Record<string, any>) {
+function onOptionClick(option: object) {
   value.value = option
   isOpen.value = false
 }
