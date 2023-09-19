@@ -1,17 +1,15 @@
-<script setup lang="ts">
-
-
-import {ref, watch} from "vue";
+<script setup lang="ts" generic="T extends object">
+import { ref, watch } from 'vue'
 
 export interface Props {
-  modelValue: object;
-  options: Array<object>;
-  labelKey: string;
+  modelValue: T
+  options: Array<T>
+  labelKey: keyof T
 }
 
 const prop = defineProps<Props>()
 const emit = defineEmits<{
-  'update:modelValue': [ value: object ];
+  'update:modelValue': [ value: object ]
 }>()
 
 // VARIABLES
@@ -37,13 +35,15 @@ watch(value, (newValue) => {
 <template>
   <div class="">
     <div class="">
-      <button @click="onOpenSelectButtonClick">Нажми на меня</button>
+      <button @click="onOpenSelectButtonClick">
+        Нажми на меня
+      </button>
     </div>
     <div v-if="isOpen" class="">
       <ul>
         <li
-            v-for="(option, optionIndex) in options" :key="optionIndex"
-            @click="onOptionClick(option)"
+          v-for="(option, optionIndex) in options" :key="optionIndex"
+          @click="onOptionClick(option)"
         >
           {{ option[labelKey] }}
         </li>
