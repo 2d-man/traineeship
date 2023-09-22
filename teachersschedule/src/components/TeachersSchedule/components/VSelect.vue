@@ -2,52 +2,40 @@
 import { ref, watch } from 'vue'
 
 export interface Props {
-  modelValue: T
   options: Array<T>
   labelKey: keyof T
 }
 
 const prop = defineProps<Props>()
 const emit = defineEmits<{
-  'update:modelValue': [ value: object ]
+  'update:modelValue': [ value: T ]
 }>()
 
 // VARIABLES
 const isOpen = ref(false)
-const value = ref(prop.modelValue)
+const selectedParallel = ref(prop.modelValue)
 
 // METHODS
 function onOptionClick(option: object) {
-  value.value = option
-  isOpen.value = false
-}
-
-function onOpenSelectButtonClick() {
-  isOpen.value = !isOpen.value
+  selectedParallel.value = option
 }
 
 // WATCHERS
-watch(value, (newValue) => {
+watch(selectedParallel, (newValue) => {
   emit('update:modelValue', newValue)
 })
 </script>
 
 <template>
   <div class="">
-    <div class="">
-      <button @click="onOpenSelectButtonClick">
-        Нажми на меня
-      </button>
-    </div>
-    <div v-if="isOpen" class="">
-      <ul>
-        <li
-          v-for="(option, optionIndex) in options" :key="optionIndex"
-          @click="onOptionClick(option)"
-        >
-          {{ option[labelKey] }}
-        </li>
-      </ul>
-    </div>
+    <ul>
+      <li
+        v-for="(option, optionIndex) in options"
+        :key="optionIndex" class="hover:bg-red-200 cursor-pointer"
+        @click="onOptionClick(option)"
+      >
+        {{ option[labelKey] }}
+      </li>
+    </ul>
   </div>
 </template>

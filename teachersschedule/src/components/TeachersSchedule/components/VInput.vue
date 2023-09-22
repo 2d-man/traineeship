@@ -1,13 +1,22 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends object">
 export interface Props {
-  // label: number;
+  search: string
+  disable: boolean
 }
-// const prop = defineProps<Props>()
-// const emit = defineEmits<{
-//   click: [];
-// }>()
+const prop = withDefaults(defineProps<Props>(), {
+  disable: false,
+})
+const emit = defineEmits<{
+  click: []
+  'update:search': [ value: T ]
+}>()
 </script>
 
 <template>
-  <input class="w-full flex grow border border-indigo-500">
+  <input
+    class="w-full flex grow border border-indigo-500"
+    :value="search"
+    @input="$emit('update:search', $event.target.value)"
+  >
+  {{ search }}
 </template>
