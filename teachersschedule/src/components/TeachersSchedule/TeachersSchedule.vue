@@ -54,7 +54,7 @@ function toggleVisible() {
       </div>
 
       <div class="max-w-full flex grow flex-wrap justify-center mb-5">
-        <VInput v-if="!disable" v-model="search" :disable="disable" />
+        <VInput v-if="!visible" v-model="search" :disable="visible" />
         {{ search }}
       </div>
 
