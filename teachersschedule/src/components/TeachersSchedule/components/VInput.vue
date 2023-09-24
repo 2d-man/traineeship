@@ -1,22 +1,27 @@
-<script setup lang="ts" generic="T extends object">
+<script setup lang="ts">
+import { ref, watch } from 'vue'
+
 export interface Props {
-  search: string
+  modelValue: string
   disable: boolean
 }
 const prop = withDefaults(defineProps<Props>(), {
   disable: false,
 })
+
 const emit = defineEmits<{
-  click: []
-  'update:search': [ value: T ]
+  'update:modelValue': [ value: string ]
 }>()
+
+const text = ref(prop.modelValue)
+
+watch(text, () => emit('update:modelValue', text))
 </script>
 
 <template>
   <input
+    v-model="text"
     class="w-full flex grow border border-indigo-500"
-    :value="search"
-    @input="$emit('update:search', $event.target.value)"
   >
-  {{ search }}
+  {{ text }}
 </template>

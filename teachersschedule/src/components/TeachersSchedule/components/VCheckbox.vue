@@ -2,21 +2,18 @@
 import { ref } from 'vue'
 
 export interface Props {
-  visible: boolean
-  // disable: boolean
+  modelValue: boolean
 }
 
-const prop = withDefaults(defineProps<Props>(), {
-  visible: true,
-  // disable: false,
-})
-
+// CONSTANTS
+const prop = defineProps<Props>()
 const emit = defineEmits<{
-  change: []
+  click: []
+  'update:modelValue': [ boolean ]
 }>()
-
 const switchLabel = ref('Показать поле ввода')
 
+// METHODS
 function toggleTextVisible() {
   if (switchLabel.value === 'Показать поле ввода')
     switchLabel.value = 'Скрыть поле ввода'
@@ -25,8 +22,8 @@ function toggleTextVisible() {
 </script>
 
 <template>
-  <div>
-    <input id="checkbox" type="checkbox" @change="toggleTextVisible">
+  <button>
+    <input id="checkbox" type="checkbox" @click="toggleTextVisible">
     <label for="checkbox"> {{ switchLabel }} </label>
-  </div>
+  </button>
 </template>
