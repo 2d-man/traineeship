@@ -11,7 +11,7 @@ const emit = defineEmits<{
 
 <template>
   <button
-    class="bg-indigo-500 px-4 py-1 rounded text-white hover:bg-red-600 duration-150"
+    class="bg-orange-600 min-w-[80px] mb-2 focus:bg-orange-700 px-4 py-1 rounded text-white hover:bg-red-600 duration-150"
     @mousedown="emit('click')"
     @keydown.enter="emit('click')"
   >

@@ -2,16 +2,15 @@
 import { ref } from 'vue'
 import VButton from './components/VButton.vue'
 import VInput from './components/VInput.vue'
-import VSelect from './components/VSelect.vue'
+import VParallelsList from './components/VParallelsList.vue'
 import VCheckbox from './components/VCheckbox.vue'
 import { parallelSchedule } from './components/IParallelSchedule.ts'
 import type { ITimezone } from './components/IParallelSchedule.ts'
 
 // VARIABLES
 const search = ref('')
-const visible = ref(true)
+const visible = ref(false)
 const selectedParallel = ref <Array<ITimezone>>()
-let disable: boolean
 
 // METHODS
 function onClassButtonClick(classNumber: number) {
@@ -24,24 +23,19 @@ function log(value: any) {
 function getParallelByClassNumber(classNumber: number): Array<ITimezone> {
   return parallelSchedule.grid[classNumber].parallel
 }
-function toggleVisible() {
-  console.warn(visible.value)
-  visible.value = !visible.value
-}
-
-// WATCHERS
 </script>
 
 <template>
-  <div class="w-full block">
+  <div class="w-[30%] block">
     <div class="flex flex-col min-w-1/3">
-      <div class="form-description ">
-        <b>Класс:</b>
+      <div class="form-description mb-5">
+        <b>Выбор класса:</b>
       </div>
 
       <div class="max-w-full flex grow flex-wrap justify-center mb-5 gap-x-2">
         <VButton
-          v-for="classNumber in 11" :key="classNumber" :label="classNumber"
+          v-for="classNumber in 12"
+          :key="classNumber" class="last:invisible" :label="classNumber"
           @click="onClassButtonClick(classNumber - 1)"
         />
       </div>
@@ -50,17 +44,17 @@ function toggleVisible() {
         v-if="selectedParallel"
         class="max-w-full flex grow flex-wrap justify-center mb-5"
       >
-        <VSelect v-model="selectedParallel" v-model:update="log" label-key="name" />
+        <VParallelsList v-model="selectedParallel" label-key="name" @log="log" />
       </div>
 
       <div class="max-w-full flex grow flex-wrap justify-center mb-5">
-        <VInput v-if="!visible" v-model="search" :disable="visible" />
-        {{ search }}
+        <VCheckbox v-model="visible" />
       </div>
 
       <div class="max-w-full flex grow flex-wrap justify-center mb-5">
-        <VCheckbox v-model="visible" @change="toggleVisible" />
+        <VInput v-if="visible" v-model="search" :disable="visible" />
       </div>
     </div>
+    <div />
   </div>
 </template>
