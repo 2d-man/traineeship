@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 
 export interface Props {
   modelValue: boolean
+  switchLabel: string
 }
 
 // CONSTANTS
@@ -11,7 +12,7 @@ const emit = defineEmits<{
   click: []
   'update:modelValue': [ boolean ]
 }>()
-const switchLabel = ref('Показать поле ввода')
+
 const visible = ref(prop.modelValue)
 // METHODS
 function toggleTextVisible() {

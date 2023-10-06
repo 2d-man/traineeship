@@ -1,6 +1,7 @@
 <script setup lang="ts" generic="T extends object">
 export interface Props {
-  modelValue: Array<T> | undefined
+  modelValue: T | undefined
+  options: Array<T>
   labelKey: string
 }
 
@@ -12,8 +13,9 @@ const emit = defineEmits<{
 }>()
 
 // METHODS
-function showGrid(parallel: string) {
+function showGrid(parallel: T) {
   console.warn(parallel)
+  emit('update:modelValue', parallel)
   // selectedParallel.value = option
 }
 </script>
@@ -22,11 +24,11 @@ function showGrid(parallel: string) {
   <div class="border-orange-600 rounded border-2 min-w-full">
     <ul class="p-1">
       <li
-        v-for="(timezone, timezoneIndex) in modelValue"
-        :key="timezoneIndex" class="p-1 hover:bg-gray-100 cursor-pointer focus:text-amber-500 border-2 border-b-0 rounded last:border-b-2 border-amber-600"
-        @click="showGrid(timezone)"
+        v-for="(parallel, parallelIndex) in options"
+        :key="parallelIndex" class="p-1 hover:bg-gray-100 cursor-pointer focus:text-amber-500 border-2 border-b-0 rounded last:border-b-2 border-amber-600"
+        @click="showGrid(parallel)"
       >
-        {{ timezone[labelKey] }}
+        {{ parallel[labelKey] }}
       </li>
     </ul>
   </div>
