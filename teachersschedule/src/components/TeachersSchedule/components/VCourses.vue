@@ -1,0 +1,27 @@
+<script setup lang="ts" generic="T extends object">
+import {ICourse} from "../data/scheduleCourses.ts";
+
+export interface Props {
+  modelValue: Record<number, Array<ICourse>>
+  courses: Record<number, Array<ICourse>>
+  name: string
+  // id: number
+}
+
+const prop = defineProps<Props>()
+const emit = defineEmits<{
+}>()
+</script>
+
+<template>
+  <div >
+    <ul class="p-1 min-w-full">
+      <li
+        v-for="(course, courseIndex) in courses"
+        :key="courseIndex" class="w-full hover:bg-gray-100 cursor-pointer focus:text-amber-500 border-2 border-b-0 rounded last:border-b-2 border-amber-600"
+      >
+        {{ course[name] }}
+      </li>
+    </ul>
+  </div>
+</template>
