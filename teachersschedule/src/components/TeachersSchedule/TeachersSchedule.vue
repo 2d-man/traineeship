@@ -77,7 +77,7 @@ function getCourseByID(parallel: IParallel): void {
 
     <div class="flex w-full grow flex-wrap justify-center mb-5 border-2">
       <div v-if="selectedParallel">
-        <VCourses v-model="selectedCourse" :courses="courses" :name="name" />
+        <VCourses :courses="courses" :name="name" />
       </div>
       <p v-else>Пожалуйста, выберите параллель.</p>
     </div>

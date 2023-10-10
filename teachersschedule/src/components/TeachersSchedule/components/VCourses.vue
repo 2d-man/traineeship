@@ -2,9 +2,9 @@
 import {ICourse} from "../data/scheduleCourses.ts";
 
 export interface Props {
-  modelValue: Record<number, Array<ICourse>>
   courses: Record<number, Array<ICourse>>
   name: string
+  /// search: string
   // id: number
 }
 
