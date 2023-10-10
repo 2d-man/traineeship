@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends object">
-import {ICourse} from "../data/scheduleCourses.ts";
+import type { ICourse } from '../data/scheduleCourses.ts'
 
 export interface Props {
   courses: Record<number, Array<ICourse>>
@@ -8,13 +8,11 @@ export interface Props {
   // id: number
 }
 
-const prop = defineProps<Props>()
-const emit = defineEmits<{
-}>()
+defineProps<Props>()
 </script>
 
 <template>
-  <div >
+  <div>
     <ul class="p-1 min-w-full">
       <li
         v-for="(course, courseIndex) in courses"

@@ -1,0 +1,158 @@
+{
+  "uuid": "ae8b716e-09bb-4603-a2b7-2ab12ebbe724",
+  "lastMigration": 28,
+  "name": "mock",
+  "endpointPrefix": "mockApi",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "43db04a4-6399-48f1-80fd-c39dd8efecc7",
+      "type": "crud",
+      "documentation": "",
+      "method": "",
+      "endpoint": "users",
+      "responses": [
+        {
+          "uuid": "952a324f-acb4-44cc-bfed-d3a525a7b258",
+          "body": "{}",
+          "latency": 500,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "aip8",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        },
+        {
+          "uuid": "6bc6610c-344e-42a8-ab0b-968cb2e515e6",
+          "body": "[]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "search",
+              "value": "",
+              "invert": true,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "ceae0435-97ef-484e-b888-aa9f2766bf28",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "auth/v1/links",
+      "responses": [
+        {
+          "uuid": "6d7c9ed7-6008-41c8-95d4-3f843f9b031e",
+          "body": "[\n  {{#repeat 10}}\n    {\n      \"id\": {{add @index 1}},\n      \"url\": \"https://www.notion.so/foxford/ID-20e92befe9614381bf3d6fc5bdce8e13\",\n      \"userName\": \"aboba\",\n      \"systemName\": \"{{ lorem 50 }}\"\n    }\n    {{#unless @last}},{{/unless}}\n  {{/repeat}}\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "43db04a4-6399-48f1-80fd-c39dd8efecc7"
+    },
+    {
+      "type": "route",
+      "uuid": "ceae0435-97ef-484e-b888-aa9f2766bf28"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "PFX",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [
+    {
+      "uuid": "075eed90-9674-4f78-8247-90330dd707b0",
+      "id": "aip8",
+      "name": "Users",
+      "documentation": "",
+      "value": "[\n  {{#repeat 40}}\n    {\n      \"id\": \"{{guid}}\",\n      \"name\": \"{{faker 'name.firstName'}} {{faker 'name.lastName'}}\",\n      \"email\": \"{{faker 'internet.email'}}\",\n      \"isCringe\": true\n    }\n    {{#unless @last}},{{/unless}}\n  {{/repeat}}\n]"
+    }
+  ]
+}
