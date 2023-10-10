@@ -6,7 +6,7 @@ export interface Props {
 }
 
 // CONSTANTS
-const prop = defineProps<Props>()
+defineProps<Props>()
 const emit = defineEmits<{
   'update:modelValue': [ value: Array<T> ]
   'log': string
@@ -16,7 +16,6 @@ const emit = defineEmits<{
 function showGrid(parallel: T) {
   console.warn(parallel)
   emit('update:modelValue', parallel)
-  // selectedParallel.value = option
 }
 </script>
 

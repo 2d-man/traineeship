@@ -9,25 +9,29 @@ import type { IParallel } from './types/parallel.ts'
 import VCourses from './components/VCourses.vue'
 import type { ICourse } from './data/scheduleCourses.ts'
 import { scheduleCourses } from './data/scheduleCourses.ts'
+import type { IUser } from '@/types/user.ts'
+import { getUsers, patchUser, postUser } from '@/api/user'
 
 // VARIABLES
 const search = ref('')
 const visible = ref(false)
 const parallels = ref <Array<IParallel>>()
 const selectedParallel = ref <IParallel>()
-const selectedCourse = ref <Array<ICourse>>()
 const courses = ref <Record<number, Array<ICourse>>>(scheduleCourses)
 const parallelID = ref(0)
 const name = ref <string>('fullName')
+const users = ref<IUser[]>(await getUsers())
 
 // METHODS
 function onClassButtonClick(classNumber: number) {
   parallels.value = getParallelByClassNumber(classNumber)
   console.warn(parallels.value)
 }
+
 function log(value: any) {
   console.warn(value)
 }
+
 function getParallelByClassNumber(classNumber: number): Array<IParallel> {
   return scheduleParallels.grade[classNumber].parallel
 }
@@ -39,15 +43,32 @@ function getCourseByID(parallel: IParallel): void {
   console.warn(parallelID.value)
   console.warn(courses.value)
 }
+
+async function createNewUser() {
+  const newUser = await postUser({ email: '123@mail.ru', name: '123', isCringe: false })
+  users.value.push(newUser)
+}
+
+async function updateUser() {
+  const updatedUser = await patchUser(users.value[0].id, { email: '123@mail.ru', name: '123', isCringe: false })
+  const indexOfUpdatedUser = users.value.findIndex(u => u.id === updatedUser.id)
+  users.value[indexOfUpdatedUser] = updatedUser
+}
 </script>
 
 <template>
   <div class="flex">
+    <pre>{{ users }}</pre>
     <div class="flex flex-col min-w-1/3">
       <div class="form-description mb-5">
         <b>Выбор класса:</b>
       </div>
-
+      <button @click="createNewUser">
+        Добавить пользователя
+      </button>
+      <button @click="updateUser">
+        Обновить пользователя
+      </button>
       <div class="max-w-xs flex flex-wrap justify-center mb-5 gap-x-2">
         <VButton
           v-for="classNumber in 12"
@@ -57,7 +78,7 @@ function getCourseByID(parallel: IParallel): void {
       </div>
 
       <div
-        v-if="parallels"
+        v-if="parallels && selectedParallel"
         class="max-w-full flex flex-wrap justify-center mb-5"
       >
         <VParallelsList

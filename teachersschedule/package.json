@@ -1,12 +1,15 @@
 {
   "name": "teachersschedule1",
+  "packageManager": "pnpm@7.25.0",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev:vite": "vite",
+    "dev": "run-p dev:vite mockoon:start",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "mockoon:start": "mockoon-cli start --data ./mock/mock.json --hostname localhost --port 3000"
   },
   "dependencies": {
     "vue": "^3.3.4"
@@ -14,12 +17,18 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.43.1",
     "@rushstack/eslint-patch": "^1.5.1",
+    "@types/node": "^20.5.7",
     "@vitejs/plugin-vue": "^4.2.3",
+    "axios": "^1.5.0",
     "tailwindcss": "^3.3.3",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
     "typescript": "^5.2.2",
     "vite": "^4.4.5",
-    "vue-tsc": "^1.8.5"
+    "vue-tsc": "^1.8.5",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-mkcert": "^1.16.0",
+    "@mockoon/cli": "^4.1.0",
+    "npm-run-all": "^4.1.5"
   }
 }
