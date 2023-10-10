@@ -8,20 +8,13 @@ export interface Props {
 
 // CONSTANTS
 const prop = defineProps<Props>()
-const emit = defineEmits<{
-  click: []
-  'update:modelValue': [ boolean ]
-}>()
-
 const visible = ref(prop.modelValue)
+
 // METHODS
 function toggleTextVisible() {
   visible.value = !visible.value
 }
-// WATCHERS
-watch(visible, (newValue) => {
-  emit('update:modelValue', newValue)
-})
+
 </script>
 
 <template>
