@@ -76,12 +76,16 @@ function getCourseByID(parallel: IParallel): void {
     </div>
 
     <div class="flex w-full grow flex-wrap justify-center mb-5 border-2">
-      <div v-if="selectedParallel">
-        <VCourses :courses="courses" :name="name" />
-      </div>
-      <p v-else>Пожалуйста, выберите параллель.</p>
+      <transition enter-active-class="transition ease-out duration-1000" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+        <div v-if="selectedParallel">
+          <VCourses :courses="courses" :name="name" />
+        </div>
+        <p v-else>
+          Пожалуйста, выберите параллель.
+        </p>
+      </transition>
     </div>
 
-    <div/>
+    <div />
   </div>
 </template>
