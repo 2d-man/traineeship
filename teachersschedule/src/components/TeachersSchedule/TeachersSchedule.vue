@@ -17,8 +17,8 @@ const parallels = ref <Array<IParallel>>()
 const selectedParallel = ref <IParallel>()
 const selectedCourse = ref <Array<ICourse>>()
 const courses = ref <Record<number, Array<ICourse>>>(scheduleCourses)
-const id = ref(0)
-const name = ref <String>('fullName')
+const parallelID = ref(0)
+const name = ref <string>('fullName')
 
 // METHODS
 function onClassButtonClick(classNumber: number) {
@@ -33,10 +33,10 @@ function getParallelByClassNumber(classNumber: number): Array<IParallel> {
 }
 
 function getCourseByID(parallel: IParallel): void {
-  id.value = parallel.id
-  courses.value = scheduleCourses[id.value]
+  parallelID.value = parallel.id
+  courses.value = scheduleCourses[parallelID.value]
   //   courses.map(e => e.key === id.value)
-  console.warn(id.value)
+  console.warn(parallelID.value)
   console.warn(courses.value)
 }
 </script>
@@ -79,6 +79,7 @@ function getCourseByID(parallel: IParallel): void {
       <div v-if="selectedParallel">
         <VCourses v-model="selectedCourse" :courses="courses" :name="name" />
       </div>
+      <p v-else>Пожалуйста, выберите параллель.</p>
     </div>
 
     <div/>
