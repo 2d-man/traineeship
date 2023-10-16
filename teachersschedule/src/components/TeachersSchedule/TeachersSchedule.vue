@@ -98,7 +98,7 @@ async function updateUser() {
 
     <div v-else class="flex flex-col min-w-1/3 m-2">
       <VButton class="w-full" label="Добавить пользователя" @click="createNewUser" />
-      <VButton class="w-full" label="Обновить пользователя" @click="createNewUser" />
+      <VButton class="w-full" label="Обновить пользователя" @click="updateUser" />
       <div class="max-w-full flex flex-wrap justify-center mb-5">
         <VCheckbox v-model="visibleUsers" switch-label="Переключить проект" />
       </div>
