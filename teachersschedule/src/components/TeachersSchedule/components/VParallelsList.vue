@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T extends object">
 export interface Props {
   modelValue: T | undefined
-  options: Array<T>
+  options: Array<T> | undefined
   labelKey: string
 }
 
