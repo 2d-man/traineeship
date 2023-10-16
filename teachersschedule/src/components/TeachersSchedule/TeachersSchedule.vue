@@ -1,20 +1,22 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { IParallel } from '../../types/parallel.ts'
+import type { IUser } from '../../types/user.ts'
+import { getUsers, patchUser, postUser } from '../../api/user'
 import VButton from './components/VButton.vue'
 import VInput from './components/VInput.vue'
 import VParallelsList from './components/VParallelsList.vue'
 import VCheckbox from './components/VCheckbox.vue'
 import { scheduleParallels } from './data/scheduleParallels.ts'
-import type { IParallel } from './types/parallel.ts'
 import VCourses from './components/VCourses.vue'
 import type { ICourse } from './data/scheduleCourses.ts'
 import { scheduleCourses } from './data/scheduleCourses.ts'
-import type { IUser } from '@/types/user.ts'
-import { getUsers, patchUser, postUser } from '@/api/user'
+import VCard from './components/VCard.vue'
 
 // VARIABLES
 const search = ref('')
 const visible = ref(false)
+const visibleUsers = ref(false)
 const parallels = ref <Array<IParallel>>()
 const selectedParallel = ref <IParallel>()
 const courses = ref <Record<number, Array<ICourse>>>(scheduleCourses)
@@ -40,7 +42,7 @@ function getCourseByID(parallel: IParallel): void {
   parallelID.value = parallel.id
   courses.value = scheduleCourses[parallelID.value]
   //   courses.map(e => e.key === id.value)
-  console.warn(parallelID.value)
+  console.warn(`parallelID: ${parallelID.value}`)
   console.warn(courses.value)
 }
 
@@ -58,17 +60,11 @@ async function updateUser() {
 
 <template>
   <div class="flex">
-    <pre>{{ users }}</pre>
-    <div class="flex flex-col min-w-1/3">
+    <div v-if="!visibleUsers" class="flex flex-col min-w-1/3">
       <div class="form-description mb-5">
         <b>Выбор класса:</b>
       </div>
-      <button @click="createNewUser">
-        Добавить пользователя
-      </button>
-      <button @click="updateUser">
-        Обновить пользователя
-      </button>
+
       <div class="max-w-xs flex flex-wrap justify-center mb-5 gap-x-2">
         <VButton
           v-for="classNumber in 12"
@@ -78,7 +74,7 @@ async function updateUser() {
       </div>
 
       <div
-        v-if="parallels && selectedParallel"
+        v-if="parallels"
         class="max-w-full flex flex-wrap justify-center mb-5"
       >
         <VParallelsList
@@ -91,12 +87,24 @@ async function updateUser() {
         <VCheckbox v-model="visible" switch-label="Показать поле ввода" />
       </div>
 
+      <div class="max-w-full flex flex-wrap justify-center mb-5">
+        <VCheckbox v-model="visibleUsers" switch-label="Переключить проект" />
+      </div>
+
       <div class="max-w-full flex grow flex-wrap justify-center mb-5">
         <VInput v-if="visible" v-model="search" :disable="visible" />
       </div>
     </div>
 
-    <div class="flex w-full grow flex-wrap justify-center mb-5 border-2">
+    <div v-else class="flex flex-col min-w-1/3 m-2">
+      <VButton class="w-full" label="Добавить пользователя" @click="createNewUser" />
+      <VButton class="w-full" label="Обновить пользователя" @click="createNewUser" />
+      <div class="max-w-full flex flex-wrap justify-center mb-5">
+        <VCheckbox v-model="visibleUsers" switch-label="Переключить проект" />
+      </div>
+    </div>
+
+    <div v-if="!visibleUsers" class="flex w-full grow flex-wrap justify-center mb-5 border-2">
       <transition enter-active-class="transition ease-out duration-1000" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
         <div v-if="selectedParallel">
           <VCourses :courses="courses" :name="name" />
@@ -105,6 +113,11 @@ async function updateUser() {
           Пожалуйста, выберите параллель.
         </p>
       </transition>
+    </div>
+
+    <div v-else class="flex w-full grow flex-wrap justify-center mb-5 border-2">
+      <VCard v-for="user in users" :key="user" :name="user.name" :is-cringe="user.isCringe" :email="user.email" />
+      <!--      <pre>{{ users }}</pre> -->
     </div>
 
     <div />
