@@ -1,6 +1,6 @@
 <script setup lang="ts">
 export interface Props {
-  label: number
+  label: number | string
 }
 
 const prop = defineProps<Props>()
