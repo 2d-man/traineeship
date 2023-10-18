@@ -2,7 +2,7 @@
 import type { ICourse } from '../../../data/scheduleCourses.ts'
 
 export interface Props {
-  courses: Record<number, Array<ICourse>>
+  courses: Array<ICourse> | undefined
   name: string
   /// search: string
   // id: number

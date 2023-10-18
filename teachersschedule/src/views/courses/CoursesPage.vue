@@ -21,6 +21,7 @@ const selectedParallel = ref <IParallel>()
 const parallelID = ref(0)
 const name = ref <string>('fullName')
 const courses = ref<Record<number, Array<ICourse>>>(await getCourses())
+const filteredCourses = ref<Array<ICourse>>()
 
 // METHODS
 function onClassButtonClick(classNumber: number) {
@@ -37,12 +38,8 @@ function getParallelByClassNumber(classNumber: number): Array<IParallel> {
 }
 
 async function getCourseByID(parallel: IParallel): Promise<void> {
-  courses.value = await getCourses(parallel.id)
-
-  // parallelID.value = parallel.id
-  // courses.value = scheduleCourses[parallelID.value]
-  //   courses.map(e => e.key === id.value)
-  console.warn(courses.value)
+  filteredCourses.value = courses.value[parallel.id]
+  console.warn(filteredCourses.value)
 }
 
 function comeBack() {
@@ -89,7 +86,7 @@ function comeBack() {
     <div class="flex w-full grow flex-wrap justify-center mb-5 border-2">
       <transition enter-active-class="transition ease-out duration-1000" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
         <div v-if="selectedParallel">
-          <VCourses :courses="courses" :name="name" />
+          <VCourses :courses="filteredCourses" :name="name" />
         </div>
         <p v-else>
           Пожалуйста, выберите параллель.

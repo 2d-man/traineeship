@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router'
 import { ref } from 'vue'
 import { getUsers, patchUser, postUser } from '@/api/user'
-import type { IUser } from '@/types/user.ts'
+import type { IUser } from '@/types/user.js'
 import VButton from '@/components/VButton.vue'
 import VCard from '@/views/users/components/VCard.vue'
 import router from '@/router'

@@ -21,7 +21,7 @@ export const routes = [
   {
     path: '/users',
     name: 'users',
-    component: import('../views/users/id/UsersPage.vue'),
+    component: import('../views/users/UsersPage.vue'),
     meta: {
       title: 'Пользователи',
     },
@@ -29,7 +29,7 @@ export const routes = [
   {
     path: '/users/:userID',
     name: 'user',
-    component: import('../views/users/id/UsersPage.vue'),
+    component: import('../views/users/UsersPage.vue'),
     meta: {
       title: 'Пользователь',
     },
