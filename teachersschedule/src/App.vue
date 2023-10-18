@@ -1,17 +1,27 @@
 <script setup lang="ts">
-import TeachersSchedule from '../src/components/TeachersSchedule/TeachersSchedule.vue'
+import { useRoute, useRouter } from 'vue-router'
+import MainLayout from './layouts/MainLayout.vue'
+
+// VARIABLES
+const route = useRoute()
+const router = useRouter()
+
+// HOOK
+router.afterEach((to) => {
+  document.title = to.meta?.title || 'Не найдено'
+})
 </script>
 
 <template>
   <Suspense>
     <template #default>
-      <div class="w-screen min-h-screen flex p-10 justify-center items-center bg-gray-100">
-        <div class="w-full min-h-full flex flex-col gap-y-4 p-10  bg-white rounded-2xl shadow">
-          <div class="flex flex-col">
-            <TeachersSchedule />
-          </div>
-        </div>
-      </div>
+      <RouterView v-slot="{ Component: View }">
+        <component :is="route.meta?.layout ?? MainLayout">
+          <template v-if="View">
+            <component :is="View" />
+          </template>
+        </component>
+      </RouterView>
     </template>
     <template #fallback>
       Гружусь...

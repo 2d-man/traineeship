@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends object">
-import type { ICourse } from '../data/scheduleCourses.ts'
+import type { ICourse } from '../../../data/scheduleCourses.ts'
 
 export interface Props {
   courses: Record<number, Array<ICourse>>

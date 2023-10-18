@@ -1,4 +1,4 @@
-import type { IParallels } from '../../../types/parallel.ts'
+import type { IParallels } from '../types/parallel.ts'
 
 export const scheduleParallels: IParallels = {
   grade: [

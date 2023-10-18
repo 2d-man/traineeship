@@ -21,7 +21,7 @@ watch(text, () => emit('update:modelValue', text))
 <template>
   <input
     v-model="text"
-    placeholder="Найти преподавателя, курс, параллель..."
+    placeholder="Найти..."
     class="w-full flex grow border border-indigo-500 h-[32px] bg-gray-100 border-0 rounded p-2"
   >
   {{ text }}
