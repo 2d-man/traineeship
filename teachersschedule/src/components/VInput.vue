@@ -4,9 +4,11 @@ import { ref, watch } from 'vue'
 export interface Props {
   modelValue: string
   disable: boolean
+  label?: string
 }
 const prop = withDefaults(defineProps<Props>(), {
   disable: false,
+  label: 'Найти...',
 })
 
 const emit = defineEmits<{
@@ -21,8 +23,7 @@ watch(text, () => emit('update:modelValue', text))
 <template>
   <input
     v-model="text"
-    placeholder="Найти..."
+    :placeholder="label"
     class="w-full flex grow border border-indigo-500 h-[32px] bg-gray-100 border-0 rounded p-2"
   >
-  {{ text }}
 </template>

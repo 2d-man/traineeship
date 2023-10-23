@@ -27,9 +27,17 @@ export const routes = [
     },
   },
   {
-    path: '/users/:userID',
+    path: '/users/create',
+    name: 'userCreate',
+    component: import('../views/users/create/UserCreate.vue'),
+    meta: {
+      title: 'Создание нового пользователя',
+    },
+  },
+  {
+    path: '/users/:userId',
     name: 'user',
-    component: import('../views/users/UsersPage.vue'),
+    component: import('../views/users/id/UserPage.vue'),
     meta: {
       title: 'Пользователь',
     },

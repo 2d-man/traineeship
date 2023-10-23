@@ -14,10 +14,15 @@ export async function getUsers(queryParams?: GetUsersQueryParams): Promise<Array
   return data
 }
 
+export async function getUser(userId: string): Promise<IUser> {
+  const { data } = await mockInstance.get<IUser>(`/users/${userId}`)
+  return data
+}
+
 export interface PostUserRequestData {
   name: string
   email: string
-  isCringe: boolean
+  isCringe?: boolean
 }
 
 // Создание
