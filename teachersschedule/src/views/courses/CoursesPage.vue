@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends object">
 import { ref } from 'vue'
 import VButton from '../../components/VButton.vue'
 import VInput from '../../components/VInput.vue'
 import VCheckbox from '../../components/VCheckbox.vue'
-import VParallelsList from '../main/components/VParallelsList.vue'
+import VParallelsList from './components/VParallelsList.vue'
 import VCourses from './components/VCourses.vue'
 import type { IParallel } from '@/types/parallel.ts'
 
@@ -17,7 +17,7 @@ import router from '@/router'
 const search = ref('')
 const visible = ref(false)
 const parallels = ref <Array<IParallel>>()
-const selectedParallel = ref <IParallel>()
+const selectedParallel = ref <IParallel | undefined>()
 const parallelID = ref(0)
 const name = ref <string>('fullName')
 const courses = ref<Record<number, Array<ICourse>>>(await getCourses())
@@ -26,11 +26,6 @@ const filteredCourses = ref<Array<ICourse>>()
 // METHODS
 function onClassButtonClick(classNumber: number) {
   parallels.value = getParallelByClassNumber(classNumber)
-  // console.warn(parallels.value)
-}
-
-function log(value: any) {
-  // console.warn(value)
 }
 
 function getParallelByClassNumber(classNumber: number): Array<IParallel> {
@@ -39,11 +34,14 @@ function getParallelByClassNumber(classNumber: number): Array<IParallel> {
 
 async function getCourseByID(parallel: IParallel): Promise<void> {
   filteredCourses.value = courses.value[parallel.id]
-  console.warn(filteredCourses.value)
 }
 
 function comeBack() {
   router.push({ name: 'main' })
+}
+
+function searchCourses(search: T) {
+  filteredCourses.value = courses.value[search.id]
 }
 </script>
 
@@ -72,24 +70,25 @@ function comeBack() {
         />
       </div>
 
-      <div class="max-w-full flex flex-wrap justify-center mb-5">
-        <VCheckbox v-model="visible" switch-label="Показать поле ввода" />
+      <div class="max-w-full flex flex-wrap justify-center mb-2">
+        <VCheckbox v-model="visible" />
+        Показать поле ввода
       </div>
 
-      <div class="max-w-full flex grow flex-wrap justify-center">
+      <div class="max-w-full flex flex-wrap justify-center">
         <VInput v-if="visible" v-model="search" :disable="visible" />
       </div>
 
       <VButton class="w-full mt-5" label="Назад" @click="comeBack" />
     </div>
 
-    <div class="flex w-full grow flex-wrap justify-center mb-5 border-2">
+    <div class="flex w-full grow flex-wrap justify-center mb-5 border-2 rounded">
       <transition enter-active-class="transition ease-out duration-1000" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
         <div v-if="selectedParallel">
           <VCourses :courses="filteredCourses" :name="name" />
         </div>
         <p v-else>
-          Пожалуйста, выберите параллель.
+          <b>Пожалуйста, выберите параллель</b>.
         </p>
       </transition>
     </div>

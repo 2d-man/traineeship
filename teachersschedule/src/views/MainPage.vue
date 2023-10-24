@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import VButton from '../../components/VButton.vue'
+import VButton from '../components/VButton.vue'
 
 // VARIABLES
 const router = useRouter()
@@ -15,8 +15,8 @@ function goToUsers() {
 </script>
 
 <template>
-  <div class="flex justify-center gap-5">
-    <VButton class="w-[200px]" label="Курсы" @click="goToCourses" />
-    <VButton class="w-[200px]" label="Пользователи" @click="goToUsers" />
+  <div class="flex flex-col items-center">
+    <VButton class="w-[400px]" label="Курсы" @click="goToCourses" />
+    <VButton class="w-[400px]" label="Пользователи" @click="goToUsers" />
   </div>
 </template>

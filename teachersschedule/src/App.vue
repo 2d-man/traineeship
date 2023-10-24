@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import MainLayout from './layouts/MainLayout.vue'
+import VToastsBox from '@/components/VToastsBox.vue'
 
 // VARIABLES
 const route = useRoute()
@@ -18,6 +19,7 @@ router.afterEach((to) => {
       <RouterView v-slot="{ Component: View }">
         <component :is="route.meta?.layout ?? MainLayout">
           <template v-if="View">
+            <VToastsBox />
             <component :is="View" />
           </template>
         </component>

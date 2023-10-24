@@ -18,6 +18,10 @@ export async function getUser(userId: string): Promise<IUser> {
   const { data } = await mockInstance.get<IUser>(`/users/${userId}`)
   return data
 }
+export async function deleteUser(userId: string): Promise<IUser> {
+  const { data } = await mockInstance.delete<IUser>(`/users/${userId}`)
+  return data
+}
 
 export interface PostUserRequestData {
   name: string

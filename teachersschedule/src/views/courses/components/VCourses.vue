@@ -16,7 +16,7 @@ defineProps<Props>()
     <ul class="p-1 min-w-full">
       <li
         v-for="(course, courseIndex) in courses"
-        :key="courseIndex" class="w-full hover:bg-gray-100 cursor-pointer focus:text-amber-500 border-2 border-b-0 rounded last:border-b-2 border-amber-600"
+        :key="courseIndex" class="w-full  cursor-pointer bg-gray-100 hover:bg-gray-200 focus:text-amber-500 border-2 border-b-0 rounded last:border-b-2 border-amber-600"
       >
         {{ course[name] }}
       </li>

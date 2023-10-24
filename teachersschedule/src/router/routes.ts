@@ -4,7 +4,7 @@ export const routes = [
   {
     path: '/',
     name: 'main',
-    component: import('../views/main/MainPage.vue'),
+    component: import('../views/MainPage.vue'),
     meta: {
       title: 'Главная',
     },
@@ -29,7 +29,7 @@ export const routes = [
   {
     path: '/users/create',
     name: 'userCreate',
-    component: import('../views/users/create/UserCreate.vue'),
+    component: import('../views/users/create/UserCreatePage.vue'),
     meta: {
       title: 'Создание нового пользователя',
     },
