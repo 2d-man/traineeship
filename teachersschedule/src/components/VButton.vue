@@ -1,19 +1,20 @@
 <script setup lang="ts">
 export interface Props {
-  label: number;
+  label: number | string
 }
 
 const prop = defineProps<Props>()
 const emit = defineEmits<{
-  click: [];
+  click: []
 }>()
-
 </script>
 
 <template>
-  <button class="bg-indigo-500 px-4 py-1 rounded text-white hover:bg-red-600 duration-150"
+  <button
+    class="w-20 max-h-8 mb-2 px-4 py-1 rounded bg-orange-600 text-white duration-150 hover:bg-red-600 "
     @mousedown="emit('click')"
-    @keydown.enter="emit('click')">
+    @keydown.enter="emit('click')"
+  >
     {{ prop.label }}
   </button>
 </template>
